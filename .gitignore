@@ -1,0 +1,10 @@
+# Exclude the packaging system
+venv/
+
+# Exclude the config file
+config.py
+
+# Exclude byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
