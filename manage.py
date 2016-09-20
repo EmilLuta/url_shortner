@@ -11,13 +11,13 @@ manager = Manager(app)
 
 @manager.command
 def create_database():
-	db.create_all()
+    db.create_all()
 
 
 @manager.command
 def drop_database():
-	db.drop_all()
+    db.drop_all()
 
 
 if __name__ == '__main__':
-	manager.run()
+    manager.run()
