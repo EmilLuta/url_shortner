@@ -6,13 +6,10 @@ from flask import redirect, request, Response
 
 @app.route('/<string:url>', methods=['POST'])
 def create_url_entry(url):
-    if 'url' not in request.json:
-        return Response(status=400)
-    else:
-        url_entry = URLServices.find_or_create_entry(request.json['url'])
-        response = Response(status=302)
-        response.set_cookie(url_entry.url_hash, url_entry.prefix + url_entry.url)
-        return response
+    url_entry = URLServices.find_or_create_entry(url)
+    response = Response(status=302)
+    response.set_cookie(url_entry.url_hash, url_entry.prefix + url_entry.url)
+    return response
 
 
 @app.route('/<key>', methods=['GET'])
