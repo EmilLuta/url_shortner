@@ -20,10 +20,10 @@ class URLServices:
         else:
             try:
                 url_entry.prefix = re.findall(url_sanitizer_regex, url)[0]
-            except IndexError as e:
+            except IndexError:
                 url_entry.prefix = 'http'
 
-            url_entry.hash_url = URLServices.encode(url_entry.url)
+            url_entry.url_hash = URLServices.encode(url_entry.url)
 
             db.session.add(url_entry)
             db.session.commit()
@@ -36,7 +36,7 @@ class URLServices:
             url_entry = URLEntry.query.filter_by(url_hash=key).first()
         finally:
             if url_entry is None:
-                url_entry = URLEntry(url_hash=key, url='https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+                url_entry = URLEntry(url_hash=key, prefix='https:/www.', url='youtube.com/watch?v=dQw4w9WgXcQ')
 
         return url_entry
 
@@ -59,5 +59,6 @@ class URLServices:
             if i == 62:
                 i = 0
             hashed_url += encoding_base[ord(url[i]) % 62]
+            i += 1
 
         return hashed_url
